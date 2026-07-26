@@ -54,7 +54,7 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=1.0,
+        vmax=0.25,
     )
     axes[0].set_title(rf"Slice at $\alpha={best_x:.2f}$")
     axes[0].set_xlabel(r"$\lambda$")
@@ -70,7 +70,7 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=1.0,
+        vmax=0.25,
     )
     axes[1].set_title(rf"Slice at $\lambda={best_y:.2f}$")
     axes[1].set_xlabel(r"$\alpha$")
@@ -85,7 +85,7 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=1.0,
+        vmax=0.25,
     )
     axes[2].set_title(rf"Slice at $\chi={best_z:.2f}$")
     axes[2].set_xlabel(r"$\alpha$")
@@ -94,7 +94,7 @@ def plot_heatmap(scores: np.ndarray) -> None:
 
     os.makedirs("figures", exist_ok=True)
     path = f"figures/3D_heatmap.png"
-    plt.savefig(path)
+    plt.savefig(path, bbox_inches="tight")
     print(f"Created {path}")
 
     plt.close()
@@ -104,7 +104,9 @@ def plot_learning_curves(scores: np.ndarray) -> None:
     N = scores.shape[0]
     NUM_RUNS = scores.shape[-2]
     NUM_STEPS: int = scores.shape[-1] - 1
+    print(f"{NUM_RUNS=}")
 
+    scores *= 100.0  # Convert to percentage
     mean = np.mean(scores, axis=-2)
     std = np.std(scores, axis=-2, ddof=1)
     t_value = stats.t.ppf(0.975, NUM_RUNS - 1)
@@ -148,16 +150,15 @@ def plot_learning_curves(scores: np.ndarray) -> None:
     plt.plot(X, Y, label=r"Watkins' Q($\lambda$)")
 
     plt.xlabel("Time Step")
-    plt.ylabel("Greedy Action Accuracy (%)")
+    plt.ylabel("Prediction Accuracy (%)")
     plt.xlim([0, NUM_STEPS])
-    plt.ylim([0.0, 1.0])
-    plt.legend(loc="right")
-    plt.legend(loc="center left", bbox_to_anchor=(1, 0.5), fontsize="x-small")
+    plt.ylim([0.0, 50.0])
+    plt.legend(loc="upper left")
     plt.tight_layout()
 
     os.makedirs("figures", exist_ok=True)
     path = f"figures/curves.png"
-    plt.savefig(path)
+    plt.savefig(path, bbox_inches="tight")
     print(f"Created {path}")
 
     plt.close()
