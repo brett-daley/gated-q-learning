@@ -12,12 +12,13 @@ from typing import Any, Callable, ClassVar, Self, override
 
 import numpy as np
 
-import standard_rl as rl
-from standard_rl import Space, parallel
-from standard_rl._examples.rl_an_introduction import math, stopwatch
-from standard_rl.core import Key
-from standard_rl.parallel import MapFuture
-from standard_rl.typing import (
+from utils import math, parallel
+from utils.interface import BasicEnvironment
+from utils.key import Key
+from utils.parallel import MapFuture
+from utils.space import Space
+from utils.stopwatch import stopwatch
+from utils.typing import (
     Environment,
     EnvironmentLike,
     FrozenList,
@@ -29,7 +30,7 @@ NUM_STEPS: int = 500
 NUM_RUNS: int = 300
 
 
-class RandomWalk(rl.BasicEnvironment):
+class RandomWalk(BasicEnvironment):
     NUM_STATES: ClassVar[int] = 19
     STATES: ClassVar[FrozenList[int]] = tuple(range(NUM_STATES))
     START_STATE: ClassVar[int] = NUM_STATES // 2
