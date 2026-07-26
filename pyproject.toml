@@ -1,0 +1,32 @@
+[project]
+name = "gated-q-learning"
+version = "1.0.0"
+description = "Reference implementation of Gated Q(lambda) (RLC 2026)"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Brett Daley" }]
+
+dependencies = [
+    "equinox",
+    "jax",
+    "matplotlib",
+    "numpy>=2.0",
+    "scipy",
+    "tqdm",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["utils"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_unused_ignores = true
+warn_redundant_casts = true
+strict_optional = true
