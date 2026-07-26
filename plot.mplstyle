@@ -1,0 +1,18 @@
+# MIT License
+# Copyright (c) 2026 Brett Daley
+
+axes.titlesize : 22
+font.size : 18
+xtick.labelsize : 14
+ytick.labelsize : 14
+legend.fontsize : 16
+
+lines.linewidth : 1.5
+
+legend.frameon : False
+legend.framealpha : 0.0
+
+axes.spines.bottom : True
+axes.spines.left : True
+axes.spines.right : False
+axes.spines.top : False
