@@ -49,10 +49,10 @@ def plot_heatmap(scores: np.ndarray) -> None:
     # Plot X-Slice (Y vs Z)
     im1 = axes[0].imshow(
         slice_x.T,
-        origin='lower',
+        origin="lower",
         extent=[0, 1, 0, 1],
-        cmap='viridis',
-        aspect='auto',
+        cmap="viridis",
+        aspect="auto",
         vmin=0.0,
         vmax=1.0,
     )
@@ -60,37 +60,37 @@ def plot_heatmap(scores: np.ndarray) -> None:
     axes[0].set_xlabel(r"$\lambda$")
     axes[0].set_ylabel(r"$\chi$")
     # Mark the optimal point
-    axes[0].scatter(best_y, best_z, c='red', marker='x', s=100)
+    axes[0].scatter(best_y, best_z, c="red", marker="x", s=100)
 
     # Plot Y-Slice (X vs Z)
     im2 = axes[1].imshow(
         slice_y.T,
-        origin='lower',
+        origin="lower",
         extent=[0, 1, 0, 1],
-        cmap='viridis',
-        aspect='auto',
+        cmap="viridis",
+        aspect="auto",
         vmin=0.0,
         vmax=1.0,
     )
     axes[1].set_title(rf"Slice at $\lambda={best_y:.2f}$")
     axes[1].set_xlabel(r"$\alpha$")
     axes[1].set_ylabel(r"$\chi$")
-    axes[1].scatter(best_x, best_z, c='red', marker='x', s=100)
+    axes[1].scatter(best_x, best_z, c="red", marker="x", s=100)
 
     # Plot Z-Slice (X vs Y)
     im3 = axes[2].imshow(
         slice_z.T,
-        origin='lower',
+        origin="lower",
         extent=[0, 1, 0, 1],
-        cmap='viridis',
-        aspect='auto',
+        cmap="viridis",
+        aspect="auto",
         vmin=0.0,
         vmax=1.0,
     )
     axes[2].set_title(rf"Slice at $\chi={best_z:.2f}$")
     axes[2].set_xlabel(r"$\alpha$")
     axes[2].set_ylabel(r"$\lambda$")
-    axes[2].scatter(best_x, best_y, c='red', marker='x', s=100)
+    axes[2].scatter(best_x, best_y, c="red", marker="x", s=100)
 
     os.makedirs("figures", exist_ok=True)
     path = f"figures/3D_heatmap.png"
