@@ -93,7 +93,7 @@ def plot_heatmap(scores: np.ndarray) -> None:
     axes[2].scatter(best_x, best_y, c="red", marker="x", s=100)
 
     os.makedirs("figures", exist_ok=True)
-    path = f"figures/3D_heatmap.png"
+    path = "figures/3D_heatmap.png"
     plt.savefig(path, bbox_inches="tight")
     print(f"Created {path}")
 
@@ -157,7 +157,7 @@ def plot_learning_curves(scores: np.ndarray) -> None:
     plt.tight_layout()
 
     os.makedirs("figures", exist_ok=True)
-    path = f"figures/curves.png"
+    path = "figures/learning_curves.png"
     plt.savefig(path, bbox_inches="tight")
     print(f"Created {path}")
 
@@ -165,7 +165,7 @@ def plot_learning_curves(scores: np.ndarray) -> None:
 
 
 def main() -> None:
-    scores = np.load("scores.npy")
+    scores = np.load("data/learning_curves.npy")
     print(scores.shape, flush=True)
     plot_heatmap(scores)
     plot_learning_curves(scores)

@@ -244,7 +244,8 @@ def main(seed: int) -> None:
                 scores[i, j, k] = futures[(i, j, k)].result()
 
     # Cache data for plotting later
-    np.save("scores.npy", scores)
+    os.makedirs("data", exist_ok=True)
+    np.save("data/learning_curves.npy", scores)
 
 
 if __name__ == "__main__":
