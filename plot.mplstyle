@@ -9,6 +9,10 @@ legend.fontsize : 16
 
 lines.linewidth : 1.5
 
+# Embed TrueType rather than Type 3 fonts; many venues reject Type 3.
+pdf.fonttype : 42
+ps.fonttype : 42
+
 legend.frameon : False
 legend.framealpha : 0.0
 

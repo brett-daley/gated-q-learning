@@ -24,6 +24,17 @@ def compute_auc(arr: Any, axis: int = -1) -> Any:
     return area / T
 
 
+def save_figure(name: str) -> None:
+    # PDF (vector) for the LaTeX paper and poster; PNG for Google Slides,
+    # which accepts only raster formats. 400 dpi so that a single cropped
+    # panel of the 3-up heatmap still resolves at half slide width on 4K.
+    os.makedirs("figures", exist_ok=True)
+    for ext, kwargs in (("pdf", {}), ("png", {"dpi": 400})):
+        path = f"figures/{name}.{ext}"
+        plt.savefig(path, bbox_inches="tight", **kwargs)
+        print(f"Created {path}")
+
+
 def plot_heatmap(scores: np.ndarray) -> None:
     mean = np.mean(scores, axis=-2)
     scores = aucs = compute_auc(mean)
@@ -54,13 +65,13 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=0.25,
+        vmax=0.175,
     )
     axes[0].set_title(rf"Slice at $\alpha={best_x:.2f}$")
     axes[0].set_xlabel(r"$\lambda$")
     axes[0].set_ylabel(r"$\chi$")
     # Mark the optimal point
-    axes[0].scatter(best_y, best_z, c="red", marker="x", s=100)
+    axes[0].scatter(best_y, best_z, c="red", marker="x", s=100, clip_on=False)
 
     # Plot Y-Slice (X vs Z)
     im2 = axes[1].imshow(
@@ -70,12 +81,12 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=0.25,
+        vmax=0.175,
     )
     axes[1].set_title(rf"Slice at $\lambda={best_y:.2f}$")
     axes[1].set_xlabel(r"$\alpha$")
     axes[1].set_ylabel(r"$\chi$")
-    axes[1].scatter(best_x, best_z, c="red", marker="x", s=100)
+    axes[1].scatter(best_x, best_z, c="red", marker="x", s=100, clip_on=False)
 
     # Plot Z-Slice (X vs Y)
     im3 = axes[2].imshow(
@@ -85,17 +96,14 @@ def plot_heatmap(scores: np.ndarray) -> None:
         cmap="viridis",
         aspect="auto",
         vmin=0.0,
-        vmax=0.25,
+        vmax=0.175,
     )
     axes[2].set_title(rf"Slice at $\chi={best_z:.2f}$")
     axes[2].set_xlabel(r"$\alpha$")
     axes[2].set_ylabel(r"$\lambda$")
-    axes[2].scatter(best_x, best_y, c="red", marker="x", s=100)
+    axes[2].scatter(best_x, best_y, c="red", marker="x", s=100, clip_on=False)
 
-    os.makedirs("figures", exist_ok=True)
-    path = "figures/3D_heatmap.png"
-    plt.savefig(path, bbox_inches="tight")
-    print(f"Created {path}")
+    save_figure("3D_heatmap")
 
     plt.close()
 
@@ -156,10 +164,7 @@ def plot_learning_curves(scores: np.ndarray) -> None:
     plt.legend(loc="upper left")
     plt.tight_layout()
 
-    os.makedirs("figures", exist_ok=True)
-    path = "figures/learning_curves.png"
-    plt.savefig(path, bbox_inches="tight")
-    print(f"Created {path}")
+    save_figure("learning_curves")
 
     plt.close()
 
