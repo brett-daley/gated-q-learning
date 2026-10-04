@@ -158,7 +158,7 @@ def plot_learning_curves(scores: np.ndarray) -> None:
     plt.plot(X, Y, label=r"Watkins' Q($\lambda$)")
 
     plt.xlabel("Time Step")
-    plt.ylabel("Prediction Accuracy (%)")
+    plt.ylabel("Learning Progress (%)")
     plt.xlim([0, NUM_STEPS])
     plt.ylim([0.0, 50.0])
     plt.legend(loc="upper left")
